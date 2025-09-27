@@ -17,7 +17,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t ${IMAGE_NAME}:latest ."
+                    dockerImage = docker.build("sshobha379/phpapp:latest")
                 }
             }
         }
@@ -25,12 +25,12 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    sh "docker tag ${IMAGE_NAME}:latest your-dockerhub-user/${IMAGE_NAME}:latest"
-                    sh "docker push sshobha379/${IMAGE_NAME}:latest"
+                    docker.withRegistry('', 'docker_username') {
+                        dockerImage.push()
+                    }
                 }
             }
-        }
-
+        
         stage('Deploy to Dev') {
             steps {
                 script {
