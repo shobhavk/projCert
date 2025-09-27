@@ -33,15 +33,6 @@ stage('Push Docker Image') {
     }
 }
 
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    docker.withRegistry('', 'docker_username') {
-                        dockerImage.push()
-                    }
-                }
-            }
-        }
         
         stage('Deploy to Dev') {
             steps {
