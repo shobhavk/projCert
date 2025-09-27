@@ -26,7 +26,7 @@ pipeline {
             steps {
                 script {
                     sh "docker tag ${IMAGE_NAME}:latest your-dockerhub-user/${IMAGE_NAME}:latest"
-                    sh "docker push your-dockerhub-user/${IMAGE_NAME}:latest"
+                    sh "docker push sshobha379/${IMAGE_NAME}:latest"
                 }
             }
         }
