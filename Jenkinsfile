@@ -6,7 +6,7 @@ pipeline {
         DEV_HOST = "dev.example.com"
         PROD_HOST = "prod.example.com"
     }
-    
+
     stages {
         stage('Clone Repository') {
             steps {
@@ -14,13 +14,24 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    dockerImage = docker.build("sshobha379/phpapp:latest")
-                }
-            }
+        
+stage('Build Docker Image') {
+    steps {
+        sh 'docker build -t sshobha379/phpapp:latest .'
+    }
+}
+
+
+stage('Push Docker Image') {
+    steps {
+        withCredentials([usernamePassword(credentialsId: 'docker_username', usernameVariable: 'sshobha379', passwordVariable: 'password')]) {
+            sh '''
+                echo "password" | docker login -u "sshobha379" --password-stdin
+                docker push sshobha379/phpapp:latest
+            '''
         }
+    }
+}
 
         stage('Push Docker Image') {
             steps {
