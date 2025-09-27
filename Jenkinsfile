@@ -6,6 +6,7 @@ pipeline {
         DEV_HOST = "dev.example.com"
         PROD_HOST = "prod.example.com"
     }
+    
     stages {
         stage('Clone Repository') {
             steps {
