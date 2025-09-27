@@ -1,0 +1,15 @@
+- hosts: dev
+  become: yes
+  tasks:
+    - name: Pull Docker image
+      docker_image:
+        name: your-dockerhub-user/applebiteco/phpapp
+        source: pull
+
+    - name: Run container
+      docker_container:
+        name: phpapp
+        image: your-dockerhub-user/applebiteco/phpapp
+        state: started
+        ports:
+          - "80:80"
